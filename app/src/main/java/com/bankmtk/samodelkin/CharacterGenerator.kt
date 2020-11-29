@@ -1,5 +1,7 @@
 package com.bankmtk.samodelkin
 
+import java.io.Serializable
+
 private fun <T> List<T>.rand() = shuffled().first()
 private fun Int.roll() = (0 until this)
     .map{(1..6).toList().rand()}
@@ -13,7 +15,7 @@ object CharacterGenerator {
     val race: String,
     val dex: String,
     val wis: String,
-    val str: String)
+    val str: String):Serializable
     private fun name() = "${firstName.rand()} ${lastName.rand()}"
     private fun race() = listOf("dwarf", "elf", "human","halfling").rand()
     private fun dex() = 4.roll()
