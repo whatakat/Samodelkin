@@ -27,7 +27,7 @@ object CharacterGenerator {
     wis = wis(),
     str = str())
 
-    fun fromApiData(apiData: Sting): CharacterData{
+    fun fromApiData(apiData: String): CharacterData{
         val(race,name,dex,wis,str) = apiData.split(",")
         return CharacterData(name,race, dex, wis, str)
     }
