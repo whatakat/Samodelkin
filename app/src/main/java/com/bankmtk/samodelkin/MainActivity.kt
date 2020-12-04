@@ -2,10 +2,12 @@ package com.bankmtk.samodelkin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.widget.Button
-import android.widget.TextView
+import com.bankmtk.samodelkin.CharacterGenerator.fetchCharacterData
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 private const val CHARACTER_DATA_KEY = "CHARACTER_DATA_KEY"
 
 private var Bundle.characterData
@@ -28,8 +30,11 @@ class MainActivity : AppCompatActivity() {
             CharacterGenerator.generate()
 
         generateButton.setOnClickListener {
-            characterData = CharacterGenerator.fromApiData("halfling,Lars Kizzy,14,13,8")
-            displayCharacterData()
+            GlobalScope.launch(Dispatchers.Main) {
+                characterData = fetchCharacterData().await()
+                displayCharacterData()
+            }
+
         }
         displayCharacterData()
     }
